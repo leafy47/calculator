@@ -14,22 +14,23 @@ deleteButton.addEventListener('click', () => {
 });
 
 numbers.forEach((number) => {
-    number.addEventListener('click', () => {
+    number.addEventListener('click', (e) => {
         if (tracker == 1) {
             tracker = 0;
             display.textContent = '';
         }
+        if (display.textContent.includes('.') && e.target.textContent == '.') return;
         display.textContent += number.textContent});
     });
 
 let tracker = 0;
 let storageArray = [];
 let operatorMem = [];
-let sum = 0;
 let operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => {
     operator.addEventListener(('click'), (e) => {
         if (display.textContent === "") return;
+        if (!operatorMem[0] && e.target == '=') return;
         storageArray.push(display.textContent);
         for(thing in operatorObject) {
             if(operatorObject[thing].symbol === operatorMem[0]) {
@@ -38,8 +39,6 @@ operators.forEach((operator) => {
         }
         operatorLogic(e.target);
         tracker = 1;
-        console.log(storageArray);
-        console.log(operatorMem);
     })
 });
 
@@ -52,23 +51,10 @@ function operatorLogic (operator) {
     operatorMem.push(operator.textContent);
 }
 
-
-// function storageLogic () {
-//     if (storageArray.length === 1) {
-
-//     }
-// }
-
-
-
-
-
-
 const operatorObject = {
     addition: {symbol: '+', calculation: function add() {
         if (storageArray[1]) {
-            display.textContent = Number(storageArray[0]) + Number(storageArray[1]); 
-            console.log(sum);
+            display.textContent = Math.round(((Number(storageArray[0]) + Number(storageArray[1])))*1000000)/1000000; 
             storageArray.pop();
             storageArray[0] = display.textContent;
             return;
@@ -76,8 +62,7 @@ const operatorObject = {
     }},
     subtraction: {symbol: '-', calculation: function subtract() {
         if (storageArray[1]) {
-            display.textContent = Number(storageArray[0]) - Number(storageArray[1]); 
-            console.log(sum);
+            display.textContent = Math.round(((Number(storageArray[0]) - Number(storageArray[1])))*1000000)/1000000; 
             storageArray.pop();
             storageArray[0] = display.textContent;
             return;
@@ -85,8 +70,7 @@ const operatorObject = {
     }},
     multiply: {symbol: '*', calculation: function multiply() {
         if (storageArray[1]) {
-            display.textContent = Number(storageArray[0]) * Number(storageArray[1]); 
-            console.log(sum);
+            display.textContent = Math.round(((Number(storageArray[0]) * Number(storageArray[1])))*1000000)/1000000; 
             storageArray.pop();
             storageArray[0] = display.textContent;
             return;
@@ -95,8 +79,11 @@ const operatorObject = {
     divide: {symbol: '/', calculation: 
     function divide() {
         if (storageArray[1]) {
-            display.textContent = Number(storageArray[0]) / Number(storageArray[1]); 
-            console.log(sum);
+            if(storageArray[1] == '0') {
+                display.textContent = 'Not cool man';
+                return;
+            }
+            display.textContent = Math.round(((Number(storageArray[0]) / Number(storageArray[1])))*1000000)/1000000; 
             storageArray.pop();
             storageArray[0] = display.textContent;
             return;
@@ -104,12 +91,9 @@ const operatorObject = {
     }},
     equals: {symbol: '=', calculation: function equals() {
         if (storageArray[1]) {
-            console.log(sum);
             storageArray.pop();
             operatorMem.pop();
             storageArray[0] = display.textContent;
-            console.log(operatorMem);
-            console.log(storageArray);
             return;
     }}}
 }

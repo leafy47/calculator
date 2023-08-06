@@ -17,6 +17,7 @@
     height: 81px;
     margin: 7px;
     font-size: 56px;
+    padding-right: 5px;
 }
 
 .blankline,
@@ -41,3 +42,14 @@
     font-size: 25px;
 }
 
+.buttons.operator {
+    background-color: orange;
+}
+
+.buttons.clear {
+    background-color: rgb(21, 225, 21);
+}
+
+.buttons.delete {
+    background-color: rgb(255, 255, 137);
+}
