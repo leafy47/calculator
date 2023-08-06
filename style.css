@@ -1,7 +1,6 @@
 .container {
     display: flexbox;
-    height: 50%;
-    width: 22%;
+    width: 400px;
     background-color: grey;
     flex-direction: column;
     margin: auto;
@@ -20,14 +19,7 @@
     font-size: 56px;
 }
 
-.blankline {
-    display: flex;
-    text-align: right;
-    background-color: aqua;
-    height: 81px;
-    margin: 7px;
-}
-
+.blankline,
 .linefour,
 .linethree,
 .linetwo,
